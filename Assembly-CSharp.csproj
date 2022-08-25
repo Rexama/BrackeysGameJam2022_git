@@ -52,10 +52,11 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\_Code\PlayerInputManager.cs" />
-     <Compile Include="Assets\_Code\SelectableObject.cs" />
+     <Compile Include="Assets\_Code\SelectableObjects\FixableObject.cs" />
+     <Compile Include="Assets\_Code\Input\PlayerInputManager.cs" />
      <Compile Include="Assets\_Code\Input\PlayerControls.cs" />
      <Compile Include="Assets\_Code\PlayerSelectManager.cs" />
+     <Compile Include="Assets\_Code\SelectableObjects\SelectableObject.cs" />
      <Compile Include="Assets\_Code\ExtensionMethods\Singleton.cs" />
      <None Include="Assets\Feel\readme.txt" />
      <None Include="Assets\Feel\license.txt" />
@@ -629,6 +630,9 @@
  <Reference Include="System.Xml.Serialization">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>D:/Unity Projects/BrackeysGameJam2022_git/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/Unity Projects/BrackeysGameJam2022_git/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
@@ -641,10 +645,6 @@
       <Project>{8538c261-6e07-9b19-dbf1-d3d285a924ec}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="MoreMountains.Feedbacks.PostProcessing.csproj">
-      <Project>{404d3571-bf63-1952-ed14-93307fbc229e}</Project>
-      <Name>MoreMountains.Feedbacks.PostProcessing</Name>
-    </ProjectReference>
     <ProjectReference Include="Lofelt.NiceVibrations.Editor.csproj">
       <Project>{53148dff-8dc4-ef3c-a5ae-6f4a29dc90b1}</Project>
       <Name>Lofelt.NiceVibrations.Editor</Name>
@@ -653,25 +653,9 @@
       <Project>{0d2a028b-3645-b67b-9d2a-a4fe77bd7d6b}</Project>
       <Name>MoreMountains.Feedbacks.HDRP</Name>
     </ProjectReference>
-    <ProjectReference Include="Cinemachine.csproj">
-      <Project>{e7568ae9-5bf8-0d3e-3895-eecfc3926c29}</Project>
-      <Name>Cinemachine</Name>
-    </ProjectReference>
     <ProjectReference Include="MoreMountains.Tools.Editor.csproj">
       <Project>{9a9e2ec0-f739-981f-b85a-596217e46695}</Project>
       <Name>MoreMountains.Tools.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="MoreMountains.Feedbacks.NiceVibrations.csproj">
-      <Project>{8493b353-fa60-6abc-deda-79b5111bfe36}</Project>
-      <Name>MoreMountains.Feedbacks.NiceVibrations</Name>
-    </ProjectReference>
-    <ProjectReference Include="com.unity.cinemachine.editor.csproj">
-      <Project>{7d0019af-ea1f-a581-19d6-d238b7dc097b}</Project>
-      <Name>com.unity.cinemachine.editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="MoreMountains.Feedbacks.Editor.csproj">
-      <Project>{a0a193ff-3a10-80f8-10f0-342cb17ca924}</Project>
-      <Name>MoreMountains.Feedbacks.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VSCode.Editor.csproj">
       <Project>{f1ab696a-e3ce-fbd7-5a32-3cf774e07e6c}</Project>
@@ -685,37 +669,17 @@
       <Project>{266e5822-5abf-e3c4-4284-6e01e278b38c}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="MoreMountains.Feedbacks.csproj">
-      <Project>{115f2573-8c8e-ae49-66b8-7ad41d891d15}</Project>
-      <Name>MoreMountains.Feedbacks</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Timeline.Editor.csproj">
-      <Project>{f2173d5d-c8b4-3726-1482-dd1a654f17ca}</Project>
-      <Name>Unity.Timeline.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{cad062a0-1420-35ff-9df6-370ae41b1651}</Project>
       <Name>Unity.Timeline</Name>
-    </ProjectReference>
-    <ProjectReference Include="Lofelt.NiceVibrations.csproj">
-      <Project>{ed8b12f0-2156-3614-e983-5dcbfa39dc12}</Project>
-      <Name>Lofelt.NiceVibrations</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{79a09e62-e6e9-8362-4e10-f6649e1273d2}</Project>
       <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
-    <ProjectReference Include="MoreMountains.Feedbacks.TextMeshPro.csproj">
-      <Project>{02872199-c482-d31f-5bc7-fc0915068076}</Project>
-      <Name>MoreMountains.Feedbacks.TextMeshPro</Name>
-    </ProjectReference>
     <ProjectReference Include="MoreMountains.Feedbacks.URP.csproj">
       <Project>{fff8d01b-512a-b5dc-d8f3-44f3fea93996}</Project>
       <Name>MoreMountains.Feedbacks.URP</Name>
-    </ProjectReference>
-    <ProjectReference Include="Lofelt.NiceVibrations.Demo.csproj">
-      <Project>{e8363346-f1c7-8f9c-ad7c-a90ebe2bba76}</Project>
-      <Name>Lofelt.NiceVibrations.Demo</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.csproj">
       <Project>{eb4309ba-77bc-eb37-b36c-ed8ad3c53ff0}</Project>
@@ -729,13 +693,53 @@
       <Project>{631e9438-f776-3626-ec17-9f8cf8bf2346}</Project>
       <Name>Unity.PlasticSCM.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="MoreMountains.Tools.csproj">
-      <Project>{d04cf9c8-2946-153f-dc88-df0043c92cef}</Project>
-      <Name>MoreMountains.Tools</Name>
-    </ProjectReference>
     <ProjectReference Include="MoreMountains.Feedbacks.MMTools.csproj">
       <Project>{f09acc5d-3161-3abc-0feb-dbcedee21935}</Project>
       <Name>MoreMountains.Feedbacks.MMTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="MoreMountains.Feedbacks.PostProcessing.csproj">
+      <Project>{404d3571-bf63-1952-ed14-93307fbc229e}</Project>
+      <Name>MoreMountains.Feedbacks.PostProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="Cinemachine.csproj">
+      <Project>{e7568ae9-5bf8-0d3e-3895-eecfc3926c29}</Project>
+      <Name>Cinemachine</Name>
+    </ProjectReference>
+    <ProjectReference Include="MoreMountains.Feedbacks.NiceVibrations.csproj">
+      <Project>{8493b353-fa60-6abc-deda-79b5111bfe36}</Project>
+      <Name>MoreMountains.Feedbacks.NiceVibrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.unity.cinemachine.editor.csproj">
+      <Project>{7d0019af-ea1f-a581-19d6-d238b7dc097b}</Project>
+      <Name>com.unity.cinemachine.editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="MoreMountains.Feedbacks.Editor.csproj">
+      <Project>{a0a193ff-3a10-80f8-10f0-342cb17ca924}</Project>
+      <Name>MoreMountains.Feedbacks.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="MoreMountains.Feedbacks.csproj">
+      <Project>{115f2573-8c8e-ae49-66b8-7ad41d891d15}</Project>
+      <Name>MoreMountains.Feedbacks</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Timeline.Editor.csproj">
+      <Project>{f2173d5d-c8b4-3726-1482-dd1a654f17ca}</Project>
+      <Name>Unity.Timeline.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lofelt.NiceVibrations.csproj">
+      <Project>{ed8b12f0-2156-3614-e983-5dcbfa39dc12}</Project>
+      <Name>Lofelt.NiceVibrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="MoreMountains.Feedbacks.TextMeshPro.csproj">
+      <Project>{02872199-c482-d31f-5bc7-fc0915068076}</Project>
+      <Name>MoreMountains.Feedbacks.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lofelt.NiceVibrations.Demo.csproj">
+      <Project>{e8363346-f1c7-8f9c-ad7c-a90ebe2bba76}</Project>
+      <Name>Lofelt.NiceVibrations.Demo</Name>
+    </ProjectReference>
+    <ProjectReference Include="MoreMountains.Tools.csproj">
+      <Project>{d04cf9c8-2946-153f-dc88-df0043c92cef}</Project>
+      <Name>MoreMountains.Tools</Name>
     </ProjectReference>
     <ProjectReference Include="MoreMountains.Feedbacks.Cinemachine.csproj">
       <Project>{d23cdbaa-1f54-b212-8a33-0e01d777d0a4}</Project>
