@@ -7,11 +7,11 @@ public class PlayerSelectManager : MonoBehaviour
     private List<SelectableObject> _selectableObjects = new List<SelectableObject>();
     private SelectableObject _selectedObject;
     
-    public void Action()
+    public void Action(PlayerMove _playerMove)
     {
         if(_selectableObjects.Count > 0)
         {
-            _selectableObjects[0].OnAction();
+            _selectableObjects[0].OnAction(_playerMove);
             _selectedObject = _selectableObjects[0];
         }
     }

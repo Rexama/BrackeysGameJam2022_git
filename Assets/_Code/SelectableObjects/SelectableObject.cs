@@ -17,11 +17,10 @@ public class SelectableObject : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _originalColor = _spriteRenderer.color;
-        Debug.Log(_originalColor.r);
         _selectedColor = new Color(_originalColor.r-colorChange, _originalColor.g-colorChange, _originalColor.b-colorChange, _originalColor.a);
     }
 
-    public virtual void OnAction()
+    public virtual void OnAction(PlayerMove player)
     {
         Debug.Log("Object Selected");
     }

@@ -1,41 +1,50 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [Header("Settings")]
-    public float speed = 5.0f;
-
-    
     public PlayerControls playerControls;
-    
     private PlayerSelectManager _playerSelectManager;
+    private PlayerInput _playerInput;
+    private PlayerMove _playerMove;
     
-    private InputAction _move;
+    //Events
+    public delegate void OnBack();
+    public static event OnBack OnBackButton;
+    
+    public InputAction move;
     private InputAction _select;
     private InputAction _fire;
+    private InputAction _back;
     private void Awake()
     {
         playerControls = new PlayerControls();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
     {
+        _playerMove = GetComponent<PlayerMove>();
         _playerSelectManager = GetComponent<PlayerSelectManager>();
     }
 
     private void OnEnable()
     {
         playerControls.Enable();
-        _move = playerControls.Player.Move;
-        _move.Enable();
-        
-        _select = playerControls.Player.Select;
+        if (_playerInput.defaultControlScheme == "Keyboard&Mouse")
+        {
+            move = playerControls.PlayerKeyboard.Move;
+            _select = playerControls.PlayerKeyboard.Select;
+        }
+        else
+        {
+            move = playerControls.PlayerGamepad.Move;
+            _select = playerControls.PlayerGamepad.Select;
+            _back = playerControls.PlayerGamepad.Back;
+            _back.performed += ctx => OnBackButton?.Invoke();
+        }
+        move.Enable();
         _select.Enable();
         _select.performed += ctx => Select();
         _select.canceled += ctx => FinishSelect();
@@ -45,30 +54,13 @@ public class PlayerInputManager : MonoBehaviour
     private void OnDisable()
     {
         playerControls.Disable();
-        _move.Disable();
+        move.Disable();
         _select.Disable();
-    }
-
-    private void Update()
-    {
-        Move();
-    }
-
-    private void Move()
-    {
-        var direction = _move.ReadValue<Vector2>();
-        var dirMag = direction.magnitude;
-        if(dirMag>0.5f)
-        {
-            transform.right = direction;
-            transform.position += dirMag*transform.right * Time.deltaTime * speed;
-        }
-        
     }
 
     private void Select()
     {
-        _playerSelectManager.Action();
+        _playerSelectManager.Action(_playerMove);
     }
     
     private void FinishSelect()

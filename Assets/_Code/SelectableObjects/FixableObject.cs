@@ -22,9 +22,9 @@ public class FixableObject : SelectableObject
         fixWindowScale = fixWindow.transform.localScale;
     }
 
-    public override void OnAction()
+    public override void OnAction(PlayerMove player)
     {
-        base.OnAction();
+        base.OnAction(player);
         fixWindow.SetActive(true);
         fixWindow.transform.DOScaleX(0, fixTime).SetEase(Ease.Linear).OnComplete(() =>
         {
